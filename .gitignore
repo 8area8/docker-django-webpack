@@ -1,0 +1,8 @@
+# Personal files.
+technos.txt
+
+# Environment variables.
+.env
+
+# VsCode
+.vscode/
