@@ -1,0 +1,42 @@
+version: '3.6'
+
+services:
+
+  django:
+    container_name: django
+    build: ./django/
+    image: nursery_django
+    env_file: .env
+    volumes:
+      - static_volume:/app/staticfiles
+      - media_volume:/app/public/media
+    command: bash -c "python3 manage.py makemigrations --merge && python3 manage.py collectstatic --no-input && gunicorn --bind=0.0.0.0:8000 app.wsgi:application"
+    restart: on-failure
+    depends_on:
+      - redis
+    networks:
+      - nginx_network
+
+  nginx:
+    container_name: nginx
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx/:/etc/nginx/conf.d
+      - static_volume:/app/staticfiles
+      - media_volume:/app/public/media
+    restart: on-failure
+    depends_on:
+      - django
+    networks:
+      - nginx_network
+
+
+networks:
+  nginx_network:
+    driver: bridge
+
+volumes:
+  static_volume:
+  media_volume:
