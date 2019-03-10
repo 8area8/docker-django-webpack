@@ -4,6 +4,6 @@ FROM python:3.6-slim
 WORKDIR /app
 
 COPY project/Pipfile project/Pipfile.lock /app/
-RUN pip install pipenv && pipenv install --deploy
+RUN pip install pipenv && pipenv install
 
-COPY project /app
+COPY project/ /app
