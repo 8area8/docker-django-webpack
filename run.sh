@@ -10,9 +10,10 @@ Commands:
     clean       Clean your docker.
     UP          Build and start the services.
     up          Only start the services.
+    build       Only build the services.
 "
 
-if [[ $1 == "LC_ALL=C.UTF-8" ]]
+if [[ $1 == "LC_ALL=C.UTF-8" ]] || [[ $# -eq 0 ]]
   then
     echo "${helpText}"
 fi
@@ -34,6 +35,10 @@ case $i in
     # Start services.
     up)
     docker-compose -f services/docker-compose.yml up --force-recreate
+    ;;
+    # Build services.
+    build)
+    docker-compose -f services/docker-compose.yml build
     ;;
     # Clean docker.
     clean)

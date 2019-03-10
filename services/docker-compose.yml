@@ -23,15 +23,24 @@ services:
     image: nginx
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ./nginx/:/etc/nginx/conf.d
       - static_volume:/app/staticfiles
       - media_volume:/app/public/media
+      - ./services/data/certbot/conf:/etc/letsencrypt
+      - ./services/data/certbot/www:/var/www/certbot
     restart: on-failure
     depends_on:
       - django
     networks:
       - nginx_network
+
+  certbot:
+    image: certbot/certbot
+    volumes:
+        - ./services/data/certbot/conf:/etc/letsencrypt
+        - ./services/data/certbot/www:/var/www/certbot
 
 
 networks:
