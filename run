@@ -1,0 +1,99 @@
+#!/usr/bin/bash
+
+helpText="
+Usage:  run.sh COMMAND
+
+Some shortcuts for project management.
+
+Pipenv commands:
+    i <library>         pipenv install command.
+    idev <library>      pipenv install --dev command.
+    u <library>         pipenv uninstall command.
+
+Docker commands:
+    clean               Clean your docker.
+    UP                  Build and start the services.
+    up                  Only start the services.
+    build               Only build the services.
+"
+
+
+if [[ $1 == "LC_ALL=C.UTF-8" ]] || [[ $# -eq 0 ]]
+  then
+    echo "${helpText}"
+fi
+
+
+PARAMS=""
+while (( "$#" )); do
+    case "$1" in
+        #  Pipenv install --dev
+        idev)
+            LIBRARY=$2
+            shift 2
+            cd services/django/project
+            pipenv install --dev $LIBRARY
+            cd ../../../
+        ;;
+        # Pipenv install
+        i)
+            LIBRARY=$2
+            shift 2
+            cd services/django/project
+            pipenv install $LIBRARY
+            cd ../../../
+        ;;
+        # Pipenv uninstall.
+        u)
+            LIBRARY=$2
+            shift 2
+            cd services/django/project
+            pipenv uninstall $LIBRARY
+            cd ../../../
+        ;;
+        # Build and start services.
+        UP)
+            shift 1
+            docker-compose -f services/docker-compose.yml build
+            docker-compose -f services/docker-compose.yml up --force-recreate
+        ;;
+        # Start services.
+        up)
+            shift 1
+            docker-compose -f services/docker-compose.yml up --force-recreate
+        ;;
+        # Build services.
+        build)
+            shift 1
+            docker-compose -f services/docker-compose.yml build
+        ;;
+        # Clean docker.
+        clean)
+            shift 1
+            docker-compose -f services/docker-compose.yml down
+            docker stop $(docker ps -aq)
+            docker rm $(docker ps -aq)
+            docker volume rm $(docker volume ls -q)
+            docker image prune -f
+        ;;
+        # Help text.
+        --help | -h)
+            shift 1
+            echo "${helpText}"
+        ;;
+        --) # end argument parsing
+            shift
+            break
+        ;;
+        -*|--*=) # unsupported flags
+            echo "Error: Unsupported flag $1" >&2
+            exit 1
+        ;;
+        *) # preserve positional arguments
+            PARAMS="$PARAMS $1"
+            shift
+        ;;
+    esac
+done
+# set positional arguments in their proper place
+eval set -- "$PARAMS"
