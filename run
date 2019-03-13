@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 helpText="
-Usage:  run.sh COMMAND
+Usage:  . run COMMAND
 
 Some shortcuts for project management.
 
@@ -27,6 +27,11 @@ fi
 PARAMS=""
 while (( "$#" )); do
     case "$1" in
+        #  Start Oracle virtualBox.
+        vbox)
+            shift 1
+            "C:/Program Files/Oracle/VirtualBox/VirtualBox.exe"
+        ;;
         #  Pipenv install --dev
         idev)
             LIBRARY=$2

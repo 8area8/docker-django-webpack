@@ -3,6 +3,8 @@
 
 # Environment variables.
 .env
+# Local certificates
+services/nginx/local_certificates/
 
 # VsCode
 .vscode/

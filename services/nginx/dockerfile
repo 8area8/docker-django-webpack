@@ -1,0 +1,8 @@
+# ./nginx/Dockerfile
+FROM nginx:latest
+
+
+RUN mkdir /etc/nginx/ssl
+COPY ./local_certificates /etc/nginx/ssl/
+
+EXPOSE 80 443
