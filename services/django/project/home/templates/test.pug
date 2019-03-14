@@ -1,0 +1,19 @@
+|{% load i18n %}
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+
+        |{% if truc %}
+        title La crèche humaniste
+        |{% endif %}
+    
+    body
+        main
+            h1 Pug Rules
+
+            |{% if truc %}
+            p.if
+            |{% else %}
+            p.else
+            |{% endif %}

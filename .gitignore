@@ -8,3 +8,9 @@ services/nginx/local_certificates/
 
 # VsCode
 .vscode/
+
+# npm
+**/node_modules
+
+# useless sqlite db
+**/db.sqlite3

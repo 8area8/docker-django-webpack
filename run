@@ -5,16 +5,27 @@ Usage:  . run COMMAND
 
 Some shortcuts for project management.
 
+PugJs commands:
+    pug <app>           pug translation command.
+
+Django commands:
+    app <app>           django startapp command.
+
+NPM commands:
+    ni <library>        npm i -D command.
+    ndev                npm run dev command
+    nbuild              npm run build command
+
 Pipenv commands:
     i <library>         pipenv install command.
     idev <library>      pipenv install --dev command.
     u <library>         pipenv uninstall command.
 
 Docker commands:
-    clean               Clean your docker.
-    UP                  Build and start the services.
-    up                  Only start the services.
-    build               Only build the services.
+    clean               clean your docker.
+    UP                  build and start the services.
+    up                  only start the services.
+    build               only build the services.
 "
 
 
@@ -27,10 +38,43 @@ fi
 PARAMS=""
 while (( "$#" )); do
     case "$1" in
-        #  Start Oracle virtualBox.
-        vbox)
+        # Pug translation command.
+        pug)
+            APP=$2
+            shift 2
+            cd services/django/project
+            pug $APP
+            cd ../../../
+        ;;
+        #  Django startapp command.
+        app)
+            APP=$2
+            shift 2
+            cd services/django/project
+            pipenv run python manage.py startapp $APP
+            cd ../../../
+        ;;
+        #  NPM run build command.
+        nbuild)
             shift 1
-            "C:/Program Files/Oracle/VirtualBox/VirtualBox.exe"
+            cd services/django/project
+            npm run build
+            cd ../../../
+        ;;
+        #  NPM run dev command.
+        ndev)
+            shift 1
+            cd services/django/project
+            npm run dev
+            cd ../../../
+        ;;
+        #  NPM install --dev command.
+        ni)
+            LIBRARY=$2
+            shift 2
+            cd services/django/project
+            npm i -D $LIBRARY
+            cd ../../../
         ;;
         #  Pipenv install --dev
         idev)
