@@ -7,11 +7,11 @@ html(lang="en")
             {% if title %}
             {{ title }}
             {% endif %}
-
+    |
     body
         |{% load render_bundle from webpack_loader %}
-        
+        |
         h1 Basic webpack test
-
-
+        |
         |{% render_bundle 'index' 'js' %}
+        |

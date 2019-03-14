@@ -15,6 +15,7 @@ NPM commands:
     ni <library>        npm i -D command.
     ndev                npm run dev command
     nbuild              npm run build command
+    ntest               npm run test command
 
 Pipenv commands:
     i <library>         pipenv install command.
@@ -38,6 +39,13 @@ fi
 PARAMS=""
 while (( "$#" )); do
     case "$1" in
+        # npm run test command.
+        ntest)
+            shift 1
+            cd services/django/project
+            npm run test
+            cd ../../../
+        ;;
         # Pug translation command.
         pug)
             APP=$2
