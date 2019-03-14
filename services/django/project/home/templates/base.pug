@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        title.
+            La Crèche Humaniste - 
+            {% if title %}
+            {{ title }}
+            {% endif %}
+
+    body
+        |{% load render_bundle from webpack_loader %}
+        
+        h1 Basic webpack test
+
+
+        |{% render_bundle 'index' 'js' %}

@@ -11,6 +11,7 @@ pydocstyle = "*"
 [packages]
 django = "*"
 gunicorn = "*"
+django-webpack-loader = "*"
 
 [requires]
 python_version = "3.6"
