@@ -39,6 +39,13 @@ fi
 PARAMS=""
 while (( "$#" )); do
     case "$1" in
+        # npm run lint command.
+        nlint)
+            shift 1
+            cd services/django/project
+            npm run lint
+            cd ../../../
+        ;;
         # npm run test command.
         ntest)
             shift 1

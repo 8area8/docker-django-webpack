@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode=production",
     "dev": "webpack --mode=development",
-    "lint": "tslint -c tslint.json '!node_modules/*.ts'",
+    "lint": "tslint -c tslint.json '**/ts/*.ts'",
     "pretest": "npm run lint",
     "test": "jest"
   },

@@ -1,4 +1,3 @@
 // TS main "home" app.
 
-import { Home } from "./home";
-export { Home };
+export { Home } from "./home";
