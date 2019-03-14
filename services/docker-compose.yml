@@ -8,6 +8,7 @@ services:
     image: nursery_django
     env_file: .env
     volumes:
+      - ./django/project/:/app/
       - static_volume:/app/staticfiles
       - media_volume:/app/public/media
     command: > 
