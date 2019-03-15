@@ -5,6 +5,9 @@ Usage:  . run COMMAND
 
 Some shortcuts for project management.
 
+Git commands
+    gitp                git push origin --all command.
+
 PugJs commands:
     pug <app>           pug translation command.
 
@@ -13,9 +16,11 @@ Django commands:
 
 NPM commands:
     ni <library>        npm i -D command.
-    ndev                npm run dev command
-    nbuild              npm run build command
-    ntest               npm run test command
+    nu <library>        npm uninstall command.
+    ndev                npm run dev command.
+    nbuild              npm run build command.
+    nlint               npm run lint command.
+    ntest               npm run test command.
 
 Pipenv commands:
     i <library>         pipenv install command.
@@ -39,6 +44,61 @@ fi
 PARAMS=""
 while (( "$#" )); do
     case "$1" in
+        # 
+        # -- GIT --
+        # 
+        # Git push origin --all command.
+        gitp)
+            shift 1
+            git push origin --all
+        ;;
+        # 
+        # -- PUG --
+        # 
+        # Pug translation command.
+        pug)
+            APP=$2
+            shift 2
+            cd services/django/project
+            pug $APP
+            cd ../../../
+        ;;
+        # 
+        # -- Django --
+        # 
+        #  Django startapp command.
+        app)
+            APP=$2
+            shift 2
+            cd services/django/project
+            pipenv run python manage.py startapp $APP
+            cd ../../../
+        ;;
+        # 
+        # -- NPM --
+        # 
+        #  npm run build command.
+        nbuild)
+            shift 1
+            cd services/django/project
+            npm run build
+            cd ../../../
+        ;;
+        #  npm run dev command.
+        ndev)
+            shift 1
+            cd services/django/project
+            npm run dev
+            cd ../../../
+        ;;
+        #  npm install --dev command.
+        ni)
+            LIBRARY=$2
+            shift 2
+            cd services/django/project
+            npm i -D $LIBRARY
+            cd ../../../
+        ;;
         # npm run lint command.
         nlint)
             shift 1
@@ -53,42 +113,15 @@ while (( "$#" )); do
             npm run test
             cd ../../../
         ;;
-        # Pug translation command.
-        pug)
-            APP=$2
-            shift 2
-            cd services/django/project
-            pug $APP
-            cd ../../../
-        ;;
-        #  Django startapp command.
-        app)
-            APP=$2
-            shift 2
-            cd services/django/project
-            pipenv run python manage.py startapp $APP
-            cd ../../../
-        ;;
-        #  NPM run build command.
-        nbuild)
-            shift 1
-            cd services/django/project
-            npm run build
-            cd ../../../
-        ;;
-        #  NPM run dev command.
-        ndev)
-            shift 1
-            cd services/django/project
-            npm run dev
-            cd ../../../
-        ;;
-        #  NPM install --dev command.
-        ni)
+        # 
+        # -- PIPENV --
+        # 
+        # Pipenv install
+        i)
             LIBRARY=$2
             shift 2
             cd services/django/project
-            npm i -D $LIBRARY
+            pipenv install $LIBRARY
             cd ../../../
         ;;
         #  Pipenv install --dev
@@ -99,14 +132,6 @@ while (( "$#" )); do
             pipenv install --dev $LIBRARY
             cd ../../../
         ;;
-        # Pipenv install
-        i)
-            LIBRARY=$2
-            shift 2
-            cd services/django/project
-            pipenv install $LIBRARY
-            cd ../../../
-        ;;
         # Pipenv uninstall.
         u)
             LIBRARY=$2
@@ -115,6 +140,9 @@ while (( "$#" )); do
             pipenv uninstall $LIBRARY
             cd ../../../
         ;;
+        # 
+        # -- DOCKER --
+        # 
         # Build and start services.
         UP)
             shift 1
@@ -140,6 +168,8 @@ while (( "$#" )); do
             docker volume rm $(docker volume ls -q)
             docker image prune -f
         ;;
+        # 
+        # 
         # Help text.
         --help | -h)
             shift 1
