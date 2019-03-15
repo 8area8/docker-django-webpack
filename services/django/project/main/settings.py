@@ -38,6 +38,7 @@ INTERNAL_IPS = [DEBUG_TOOLBAR_ID, LOCAL_IP, ]
 # Application definition
 
 INSTALLED_APPS = [
+    # -- Default --
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

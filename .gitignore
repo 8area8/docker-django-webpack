@@ -1,5 +1,7 @@
 # Personal files.
-**.txt
+*.txt
+# Keep 'README.txt'.
+!README.txt
 # Log files.
 **/*.log
 
