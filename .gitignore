@@ -1,5 +1,7 @@
 # Personal files.
 **.txt
+# Log files.
+**/*.log
 
 # Environment variables.
 .env
