@@ -26,11 +26,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv("DJANGO__SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False if os.getenv('ENV') == "PRODUCTION" else True
+DEBUG = False if os.getenv('DJANGO__ENV') == "PRODUCTION" else True
 
 # IP settings.
 LOCAL_IP = os.getenv('LOCAL_IP')
-DEBUG_TOOLBAR_ID = os.getenv('DEBUG_TOOLBAR')
+DEBUG_TOOLBAR_ID = os.getenv('DJANGO__DEBUG_TOOLBAR_IP')
 ALLOWED_HOSTS = [LOCAL_IP, ]
 INTERNAL_IPS = [DEBUG_TOOLBAR_ID, LOCAL_IP, ]
 
