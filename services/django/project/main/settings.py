@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
-import sys
 import os
+
+from . import django_logging
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,9 +26,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv("DJANGO__SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False if os.getenv('ENV') == "PRODUCTION" else True
 
-ALLOWED_HOSTS = ['192.168.99.100']
+# IP settings.
+LOCAL_IP = os.getenv('LOCAL_IP')
+DEBUG_TOOLBAR_ID = os.getenv('DEBUG_TOOLBAR')
+ALLOWED_HOSTS = [LOCAL_IP, ]
+INTERNAL_IPS = [DEBUG_TOOLBAR_ID, LOCAL_IP, ]
 
 
 # Application definition
@@ -38,14 +44,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Plugins
+    # -- Plugins --
     # https://github.com/owais/django-webpack-loader
+    # https://django-debug-toolbar.readthedocs.io/en/latest/index.html
     'webpack_loader',
-    # Personal applications
+    'debug_toolbar',
+    # -- Personal --
     'home',
 ]
 
 MIDDLEWARE = [
+    # -- Plugins --
+    # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # -- Default --
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -92,16 +104,20 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+        '.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+        '.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+        '.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation'
+        '.NumericPasswordValidator',
     },
 ]
 
@@ -142,10 +158,16 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': 'dist/',  # must end with slash
+        'BUNDLE_DIR_NAME': 'dist/',
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
         'POLL_INTERVAL': 0.1,
         'TIMEOUT': None,
         'IGNORE': [r'.+\.hot-update.js', r'.+\.map']
     }
 }
+
+
+# Logging
+# https://docs.djangoproject.com/en/2.1/topics/logging/#examples
+
+LOGGING = django_logging.set_logging()
