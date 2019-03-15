@@ -7,6 +7,7 @@ Some shortcuts for project management.
 
 Git commands
     gitp                git push origin --all command.
+    gitpbase            git push base_github base_project
 
 PugJs commands:
     pug <app>           pug translation command.
@@ -51,6 +52,11 @@ while (( "$#" )); do
         gitp)
             shift 1
             git push origin --all
+        ;;
+        # Git push base_github base_project command.
+        gitpbase)
+            shift 1
+            git push base_github base_project
         ;;
         # 
         # -- PUG --
