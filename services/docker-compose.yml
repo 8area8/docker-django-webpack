@@ -18,6 +18,8 @@ services:
     restart: on-failure
     networks:
       - nginx_network
+    links:
+    - redis:redis
 
 
   nginx:
@@ -36,6 +38,15 @@ services:
     depends_on:
       - django
 
+  redis:
+    restart: always
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_volume:/data
+
 
 networks:
   nginx_network:
@@ -44,3 +55,4 @@ networks:
 volumes:
   static_volume:
   media_volume:
+  redis_volume:

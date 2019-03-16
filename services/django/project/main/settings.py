@@ -168,7 +168,25 @@ WEBPACK_LOADER = {
 }
 
 
-# Logging
+# Logging config
 # https://docs.djangoproject.com/en/2.1/topics/logging/#examples
 
 LOGGING = django_logging.set_logging()
+
+
+# Redis cache config
+# https://realpython.com/caching-in-django-with-redis/
+# https://docs.djangoproject.com/fr/2.1/topics/cache/#cache-key-prefixing
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/0",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+        },
+        "KEY_PREFIX": "django"
+    }
+}
+# Cache time to live is 15 minutes.
+CACHE_TTL = 60 * 15
