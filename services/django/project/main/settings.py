@@ -30,9 +30,9 @@ DEBUG = False if os.getenv('DJANGO__ENV') == "PRODUCTION" else True
 
 # IP settings.
 LOCAL_IP = os.getenv('LOCAL_IP')
-DEBUG_TOOLBAR_ID = os.getenv('DJANGO__DEBUG_TOOLBAR_IP')
+DEBUG_TOOLBAR_IP = os.getenv('DJANGO__DEBUG_TOOLBAR_IP')
 ALLOWED_HOSTS = [LOCAL_IP, ]
-INTERNAL_IPS = [DEBUG_TOOLBAR_ID, LOCAL_IP, ]
+INTERNAL_IPS = [DEBUG_TOOLBAR_IP, LOCAL_IP, ]
 
 
 # Application definition
@@ -48,15 +48,18 @@ INSTALLED_APPS = [
     # -- Plugins --
     # https://github.com/owais/django-webpack-loader
     # https://django-debug-toolbar.readthedocs.io/en/latest/index.html
+    # https://django-otp-official.readthedocs.io/en/latest/overview.html#installation
     'webpack_loader',
     'debug_toolbar',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
     # -- Personal --
     'home',
     'dbtasks',
 ]
 
 MIDDLEWARE = [
-    # -- Plugins --
+    # -- Plugin --
     # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html
     'debug_toolbar.middleware.DebugToolbarMiddleware',
     # -- Default --
@@ -65,6 +68,10 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    # -- Puglin --
+    # https://django-otp-official.readthedocs.io/en/latest/overview.html#installation
+    'django_otp.middleware.OTPMiddleware',
+    # -- Default --
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -157,6 +164,11 @@ STATICFILES_DIRS = (
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+# local https next
+# https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
 
 #  Django-webpack
 #  https://github.com/owais/django-webpack-loader
@@ -202,3 +214,16 @@ CACHE_TTL = 60 * 15
 
 ENVIRONMENT_NAME = os.getenv("DJANGO__ENV")
 ENVIRONMENT_COLOR = os.getenv("DJANGO__ENV_COLOR", 'black')
+
+# Django-otp settings
+# https://django-otp-official.readthedocs.io/en/latest/overview.html#installation
+
+OTP_TOTP_ISSUER = 'La crèche Humaniste.'
+
+# Email settings
+# https://docs.djangoproject.com/en/2.1/topics/email/
+
+# DEFAULT_FROM_EMAIL=''
+# SERVER_EMAIL=''
+# ADMINS=''
+# MANAGERS=''

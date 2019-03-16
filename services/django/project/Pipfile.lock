@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0533cfb2b0325a2d6e30504ca653d0f74c754bf84f8690b5b8d3099e902a9756"
+            "sha256": "5d79804aa31a025f4ef0d911fb83b064e87f8722ebbea57282f40e721e02b14f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,14 @@
         ]
     },
     "default": {
+        "colorama": {
+            "hashes": [
+                "sha256:05eed71e2e327246ad6b38c540c4a3117230b19679b875190486ddd2d721422d",
+                "sha256:f8ac84de7840f5b9c4e3347b3c1eaa50f7e49c2b07596221daec5edaabbd7c48"
+            ],
+            "markers": "platform_system == 'Windows'",
+            "version": "==0.4.1"
+        },
         "django": {
             "hashes": [
                 "sha256:275bec66fd2588dd517ada59b8bfb23d4a9abc5a362349139ddda3c7ff6f5ade",
@@ -31,6 +39,14 @@
             ],
             "index": "pypi",
             "version": "==1.11"
+        },
+        "django-otp": {
+            "hashes": [
+                "sha256:1860e72cfcd95fe73117f3543d2e53f7847cf59e894ae0aa9399a10a50fb081f",
+                "sha256:5756050ec09ecf8e6ce2b0f9f370ebd26249f326a1010a413b61c6a4c554f25f"
+            ],
+            "index": "pypi",
+            "version": "==0.5.2"
         },
         "django-webpack-loader": {
             "hashes": [
@@ -55,6 +71,21 @@
             ],
             "version": "==2018.9"
         },
+        "qrcode": {
+            "hashes": [
+                "sha256:3996ee560fc39532910603704c82980ff6d4d5d629f9c3f25f34174ce8606cf5",
+                "sha256:505253854f607f2abf4d16092c61d4e9d511a3b4392e60bff957a68592b04369"
+            ],
+            "index": "pypi",
+            "version": "==6.1"
+        },
+        "six": {
+            "hashes": [
+                "sha256:3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c",
+                "sha256:d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"
+            ],
+            "version": "==1.12.0"
+        },
         "sqlparse": {
             "hashes": [
                 "sha256:40afe6b8d4b1117e7dff5504d7a8ce07d9a1b15aeeade8a2d10f130a834f8177",
@@ -76,7 +107,7 @@
                 "sha256:05eed71e2e327246ad6b38c540c4a3117230b19679b875190486ddd2d721422d",
                 "sha256:f8ac84de7840f5b9c4e3347b3c1eaa50f7e49c2b07596221daec5edaabbd7c48"
             ],
-            "markers": "sys_platform == 'win32'",
+            "markers": "platform_system == 'Windows'",
             "version": "==0.4.1"
         },
         "entrypoints": {
