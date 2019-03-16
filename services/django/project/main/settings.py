@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     # -- Personal --
     'home',
+    'dbtasks',
 ]
 
 MIDDLEWARE = [
@@ -73,14 +74,17 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                # -- Default --
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # -- Personal --
+                'main.context_processors.from_settings',
             ],
         },
     },
@@ -126,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fr'
 
 TIME_ZONE = 'UTC'
 
@@ -142,6 +146,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ADMIN_PATH = os.getenv('STATIC_ADMIN_PATH')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'assets'),
 )
@@ -190,3 +195,10 @@ CACHES = {
 }
 # Cache time to live is 15 minutes.
 CACHE_TTL = 60 * 15
+
+
+# Admin improvements
+# https://hackernoon.com/5-ways-to-make-django-admin-safer-eb7753698ac8
+
+ENVIRONMENT_NAME = os.getenv("DJANGO__ENV")
+ENVIRONMENT_COLOR = os.getenv("DJANGO__ENV_COLOR", 'black')
