@@ -9,9 +9,8 @@ html(lang="en")
             {% endif %}
     |
     body
-        |{% load render_bundle from webpack_loader %}
-        |
+        |{% load static %}
+
         h1 Basic webpack test
-        |
-        |{% render_bundle 'index' 'js' %}
-        |
+
+        script(src="{% static 'dist/index.js' %}")
