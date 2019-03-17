@@ -33,7 +33,9 @@ Docker commands:
     UP                  build and start the services.
     up                  only start the services.
     build               only build the services.
+    rmvolumes           remove the docker volumes.
     djbash              Docker django shell command.
+    repop               Migrate and populate the database.
 "
 
 
@@ -171,16 +173,28 @@ while (( "$#" )); do
         # Clean docker.
         clean)
             shift 1
-            docker-compose -f services/docker-compose.yml -f services/docker-compose.dev.yml down
+            docker-compose $DOCKERFILES down
             docker stop $(docker ps -aq)
             docker rm $(docker ps -aq)
-            docker volume rm $(docker volume ls -q)
             docker image prune -f
+        ;;
+        # Remove volumes.
+        rmvolumes)
+            shift 1
+            docker-compose $DOCKERFILES down
+            docker volume rm $(docker volume ls -q)
         ;;
         #  Docker django shell command.
         djbash)
             shift 1
-            docker-compose -f services/docker-compose.yml exec django bash
+            docker-compose $DOCKERFILES exec django bash
+        ;;
+        #  Migrate abd populate the db.
+        repop)
+            shift 1
+            MIGRATE='pipenv run python3 manage.py migrate'
+            POPULATE='pipenv run python3 manage.py setup_dev_db'
+            docker-compose $DOCKERFILES exec django bash -c "$MIGRATE && $POPULATE"
         ;;
         # 
         # 
