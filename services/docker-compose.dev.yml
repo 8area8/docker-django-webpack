@@ -1,0 +1,25 @@
+# https://medium.com/softonic-eng/docker-compose-from-development-to-production-88000124a57c
+version: '3.7'
+
+services:
+  db:
+    container_name: postgres
+    image: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - db_network
+    restart: on-failure
+
+  django:
+    depends_on:
+      - db
+    networks:
+      - db_network
+
+volumes:
+  postgres-data:
+
+networks:
+  db_network:
+    driver: bridge

@@ -1,4 +1,4 @@
-version: '3.6'
+version: '3.7'
 
 services:
 
@@ -19,7 +19,7 @@ services:
     networks:
       - nginx_network
     links:
-    - redis:redis
+      - redis:redis
 
 
   nginx:
@@ -39,20 +39,21 @@ services:
       - django
 
   redis:
+    container_name: redis
     restart: always
     image: redis:latest
-    container_name: redis
     ports:
       - "6379:6379"
     volumes:
       - redis_volume:/data
 
-
 networks:
   nginx_network:
     driver: bridge
+
 
 volumes:
   static_volume:
   media_volume:
   redis_volume:
+

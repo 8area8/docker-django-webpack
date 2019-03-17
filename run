@@ -42,6 +42,8 @@ if [[ $1 == "LC_ALL=C.UTF-8" ]] || [[ $# -eq 0 ]]
     echo "${helpText}"
 fi
 
+DOCKERFILES='-f services/docker-compose.yml -f services/docker-compose.dev.yml'
+
 
 PARAMS=""
 while (( "$#" )); do
@@ -153,23 +155,23 @@ while (( "$#" )); do
         # Build and start services.
         UP)
             shift 1
-            docker-compose -f services/docker-compose.yml build
-            docker-compose -f services/docker-compose.yml up --force-recreate
+            docker-compose $DOCKERFILES build
+            docker-compose $DOCKERFILES up --force-recreate
         ;;
         # Start services.
         up)
             shift 1
-            docker-compose -f services/docker-compose.yml up --force-recreate
+            docker-compose $DOCKERFILES up --force-recreate
         ;;
         # Build services.
         build)
             shift 1
-            docker-compose -f services/docker-compose.yml build
+            docker-compose $DOCKERFILES build
         ;;
         # Clean docker.
         clean)
             shift 1
-            docker-compose -f services/docker-compose.yml down
+            docker-compose -f services/docker-compose.yml -f services/docker-compose.dev.yml down
             docker stop $(docker ps -aq)
             docker rm $(docker ps -aq)
             docker volume rm $(docker volume ls -q)
