@@ -6,8 +6,6 @@ from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.db.utils import IntegrityError
 
-from django_otp.plugins.otp_totp.models import TOTPDevice
-
 
 class Command(BaseCommand):
     """Command class."""
@@ -20,7 +18,7 @@ class Command(BaseCommand):
 
     def create_superuser(self):
         """Create the superuser."""
-        logger = logging.getLogger('dbtasks')
+        logger = logging.getLogger('base')
         admin_context = ('admin', 'admin@example.com', 'pass')
         try:
             User.objects.create_superuser(*admin_context)

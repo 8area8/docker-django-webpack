@@ -11,7 +11,7 @@ class Home(View):
 
     template_name = 'base.html'
     context = {"title": "Home"}
-    logger = logging.getLogger('home')
+    logger = logging.getLogger('base')
 
     def get(self, request):
         """Get method for Home view."""

@@ -25,7 +25,7 @@ def set_logging():
             },
         },
         'loggers': {
-            'home': {
+            'base': {
                 'handlers': ['console', 'file'],
                 'level': 'DEBUG',
                 'propagate': True,
