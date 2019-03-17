@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_otp',
     'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_static',
     # -- Personal --
     'home',
     'dbtasks',

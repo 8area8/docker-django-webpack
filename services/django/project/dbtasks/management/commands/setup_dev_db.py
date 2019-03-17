@@ -1,7 +1,12 @@
 """Add development datas in the database."""
 
+import logging
+
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
+from django.db.utils import IntegrityError
+
+from django_otp.plugins.otp_totp.models import TOTPDevice
 
 
 class Command(BaseCommand):
@@ -15,4 +20,9 @@ class Command(BaseCommand):
 
     def create_superuser(self):
         """Create the superuser."""
-        User.objects.create_superuser('admin', 'admin@example.com', 'pass')
+        logger = logging.getLogger('dbtasks')
+        admin_context = ('admin', 'admin@example.com', 'pass')
+        try:
+            User.objects.create_superuser(*admin_context)
+        except IntegrityError:
+            logger.warning("'admin' user already exists.")
