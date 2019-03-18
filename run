@@ -36,6 +36,7 @@ Docker commands:
     rmvolumes           remove the docker volumes.
     djbash              Docker django shell command.
     repop               Migrate and populate the database.
+    otp                 get an otp static token, for admin.
 "
 
 
@@ -189,12 +190,18 @@ while (( "$#" )); do
             shift 1
             docker-compose $DOCKERFILES exec django bash
         ;;
-        #  Migrate abd populate the db.
+        #  Migrate and populate the db.
         repop)
             shift 1
             MIGRATE='pipenv run python3 manage.py migrate'
             POPULATE='pipenv run python3 manage.py setup_dev_db'
             docker-compose $DOCKERFILES exec django bash -c "$MIGRATE && $POPULATE"
+        ;;
+        #  Get an otp static token.
+        otp)
+            shift 1
+            OTPKEY='pipenv run python3 manage.py addstatictoken admin'
+            docker-compose $DOCKERFILES exec django bash -c "$OTPKEY"
         ;;
         # 
         # 
