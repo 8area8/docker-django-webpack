@@ -31,7 +31,7 @@ DEBUG = False if os.getenv('DJANGO__ENV') == "PRODUCTION" else True
 # IP settings.
 LOCAL_IP = os.getenv('LOCAL_IP')
 DEBUG_TOOLBAR_IP = os.getenv('DJANGO__DEBUG_TOOLBAR_IP')
-ALLOWED_HOSTS = [LOCAL_IP, ]
+ALLOWED_HOSTS = ['*'] if DEBUG else []
 INTERNAL_IPS = [DEBUG_TOOLBAR_IP, LOCAL_IP, ]
 
 

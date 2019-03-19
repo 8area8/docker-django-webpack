@@ -20,6 +20,8 @@ services:
       - nginx_network
     links:
       - redis:redis
+    stdin_open: true
+    tty: true
 
 
   nginx:

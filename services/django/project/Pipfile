@@ -16,6 +16,8 @@ django-debug-toolbar = "*"
 django-otp = "*"
 qrcode = "*"
 psycopg2-binary = "*"
+django-redis = "*"
+selenium = "*"
 
 [requires]
 python_version = "3.6"
