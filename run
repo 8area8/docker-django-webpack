@@ -34,8 +34,11 @@ Docker commands:
     up                  only start the services.
     build               only build the services.
     rmvolumes           remove the docker volumes.
-    djbash              Docker django shell command.
-    repop               Migrate and populate the database.
+    djbash              docker django shell command.
+    restart <service>   restart the service.
+    djtest              run the django tests.
+    djselenium          run the selenium tests.
+    repop               migrate and populate the database.
     otp                 get an otp static token, for admin.
 "
 
@@ -185,10 +188,28 @@ while (( "$#" )); do
             docker-compose $DOCKERFILES down
             docker volume rm $(docker volume ls -q)
         ;;
+        #  Restart the service.
+        restart)
+            CONTAINER=$2
+            shift 2
+            docker-compose $DOCKERFILES restart $CONTAINER
+        ;;
         #  Docker django shell command.
         djbash)
             shift 1
             docker-compose $DOCKERFILES exec django bash
+        ;;
+        #  Run the django tests.
+        djtest)
+            shift 1
+            TEST='pipenv run python3 manage.py test --exclude-tag=selenium'
+            docker-compose $DOCKERFILES exec django bash -c "$TEST"
+        ;;
+        #  Run the selenium tests.
+        djselenium)
+            shift 1
+            TEST='pipenv run python3 manage.py test --tag=selenium'
+            docker-compose $DOCKERFILES exec django bash -c "$TEST"
         ;;
         #  Migrate and populate the db.
         repop)
