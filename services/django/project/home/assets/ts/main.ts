@@ -1,3 +1,3 @@
 // TS main "home" app.
 
-export { Home } from "./home";
+export { setupDom } from "./home";

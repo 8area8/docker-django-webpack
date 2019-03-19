@@ -5,4 +5,17 @@ import "../../../home/assets/scss/main.scss";
 import "../scss/index.scss";
 
 // Typescript importations
-import { Home } from "../../../home/assets/ts/main";
+import { setupDom as homeSetup } from "../../../home/assets/ts/main";
+
+document.addEventListener("DOMContentLoaded", () => {
+    // Main function.
+    const page = window.location.pathname;
+
+    switch (page) {
+        case "/": {
+            homeSetup();
+            break;
+        }
+    }
+
+}, false);
