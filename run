@@ -5,9 +5,12 @@ Usage:  . run COMMAND
 
 Some shortcuts for project management.
 
+Installation
+    setup               pipenv and npm installation.
+
 Git commands
     gitp                git push origin --all command.
-    gitpbase            git push base_github base_project
+    gitpbase            git push base_github base_project.
 
 PugJs commands:
     pug <app>           pug translation command.
@@ -54,6 +57,16 @@ DOCKERFILES='-f services/docker-compose.yml -f services/docker-compose.dev.yml'
 PARAMS=""
 while (( "$#" )); do
     case "$1" in
+        # 
+        # -- Installation --
+        # 
+        # Install pipenv and npm.
+        setup)
+            shift 1
+            cd services/django/project
+            pipenv install && npm install
+            cd ../../../
+        ;;
         # 
         # -- GIT --
         # 
