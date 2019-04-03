@@ -10,8 +10,8 @@
 - Nginx (connexion sécurisée en locale et en production avec mkcert et certbot, à implémenter soi même)
 - Django Gunicorn
 - Redis
-- PostgreSQL (**developpement**)
-- Selenium et Selenium-chrome (**developpement**)
+- PostgreSQL (**pour le developpement**)
+- Selenium et Selenium-chrome (**pour le developpement**)
 
 ### b. L'architecture de l'application backend
 
@@ -42,8 +42,8 @@
 
 ### a. Préréquis
 
-- Posséder npm (nodeJs) intégré dans votre *Path*.
-- Posséder python version 3.6 intégré dans votre *Path*.
+- posséder docker et docker-compose (docker-compose v3.7)
+- Facultatif : posséder npm (nodeJs) intégré dans votre *Path* (pour les tests).
 - Facultatif : posséder VNC viewer (pour visualiser les tests Selenium).
 
 ### b. La commande d'installation
@@ -79,6 +79,6 @@ Remplissez les champs comme dans l'exemple:
 ![VNC Viewer example](https://i.imgur.com/9Y9DPkn.png)
   
 Lancez les conteneurs si ce n'est pas déjà fait.  
-Ouvrez ensuite la connexion et entrez le mot de passe `secret`. Une nouvelle fenêtre s'ouvrira.  
+Ouvrez ensuite la connexion dans VNC Viewer et entrez le mot de passe `secret`. Une nouvelle fenêtre s'ouvrira.  
 Cette fenêtre donne sur le conteneur Selenium-chrome.  
-Lancez enfin les tests Selenium avec `. run djselenium`. Les tests seront visibles depuis la fenêtre ouverte dans VNC Viewer.  
+Lancez enfin les tests Selenium avec la commande `. run djselenium`. Les tests seront visibles depuis la fenêtre ouverte dans VNC Viewer.  
